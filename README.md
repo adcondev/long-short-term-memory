@@ -1,6 +1,5 @@
 # Character-Level LSTM for French Name Generation
 
-![Project Logo](images/logo.png)
 
 [![Language](https://img.shields.io/badge/Language-Python-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
