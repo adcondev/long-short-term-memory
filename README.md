@@ -3,7 +3,6 @@
 
 [![Language](https://img.shields.io/badge/Language-Python-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](PLACEHOLDER_URL)
 
 This project is a character-level Long Short-Term Memory (LSTM) network built from scratch in Python using NumPy. It's designed to generate French names by learning the patterns from a given dataset. The project also includes functionality to export the trained model weights for deployment on an FPGA.
 
