@@ -12,7 +12,7 @@ This project is a character-level Long Short-Term Memory (LSTM) network built fr
 graph TD;
     A[French Names CSV] --> B[Data Preprocessing in Pandas];
     B --> C[Character Vocabulary & One-Hot Encoding];
-    C --> D{LSTM Model Training (NumPy)};
+    C --> D[LSTM Model Training NumPy];
     D --> E[Generate New Names];
     D --> F[Export Weights to .coe Files for FPGA];
 ```
