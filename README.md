@@ -1,57 +1,77 @@
-# Character-Level LSTM for French Name Generation
+# LSTM from Scratch with FPGA Export
 
+![Project Logo](https://via.placeholder.com/150?text=LSTM+Project)
 
-[![Language](https://img.shields.io/badge/Language-Python-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Python](https://img.shields.io/badge/python-3.x-blue.svg)
+![NumPy](https://img.shields.io/badge/numpy-latest-orange.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Status](https://img.shields.io/badge/status-educational-yellow.svg)
 
-This project is a character-level Long Short-Term Memory (LSTM) network built from scratch in Python using NumPy. It's designed to generate French names by learning the patterns from a given dataset. The project also includes functionality to export the trained model weights for deployment on an FPGA.
+## Project Overview
 
-## Architecture Diagram
+This repository contains a complete implementation of a **Long Short-Term Memory (LSTM)** neural network built from scratch using **Python** and **NumPy**. Unlike standard implementations that rely on high-level frameworks like TensorFlow or PyTorch, this project manually implements the forward and backward propagation algorithms, as well as the Adam optimizer.
+
+The model is designed to perform character-level text generation, trained on a dataset of French names. A key feature of this project is its ability to export the trained weights into **.coe (Coefficient)** files, which are compatible with Xilinx FPGAs, enabling hardware-based inference.
+
+## Architecture
+
+The following diagram illustrates the high-level architecture and data flow of the project:
 
 ```mermaid
-graph TD;
-    A[French Names CSV] --> B[Data Preprocessing in Pandas];
-    B --> C[Character Vocabulary & One-Hot Encoding];
-    C --> D[LSTM Model Training NumPy];
-    D --> E[Generate New Names];
-    D --> F[Export Weights to .coe Files for FPGA];
+graph TD
+    A[FrenchNames.csv] -->|Load & Clean| B(Data Preprocessing)
+    B -->|One-Hot Encoding| C{Training Loop}
+    
+    subgraph LSTM Model
+    C -->|Forward Prop| D[LSTM Cell]
+    D -->|Calculate Loss| E[Loss & Accuracy]
+    E -->|Backprop Through Time| F[Calculate Gradients]
+    F -->|Adam Optimizer| G[Update Weights]
+    G -->|Next Epoch| C
+    end
+    
+    C -->|Training Complete| H[Trained Parameters]
+    H -->|Generate| I[New French Names]
+    H -->|Export| J[FPGA Weights .coe]
+    J --> K[Xilinx FPGA]
 ```
 
 ## Features
 
-- **LSTM from Scratch:** The LSTM model is implemented using only NumPy, providing a deep understanding of the underlying mechanics.
-- **Character-Level Generation:** The model learns to generate text one character at a time.
-- **FPGA Weight Export:** Includes a utility to convert and save model weights for hardware acceleration.
-- **Performance Visualization:** Uses Matplotlib to plot training metrics like loss, perplexity, and accuracy.
+- **Pure NumPy Implementation**: No deep learning frameworks used; great for understanding the math behind RNNs.
+- **Custom LSTM Cell**: Manual implementation of Forget, Input, Output, and Candidate gates.
+- **Adam Optimization**: Custom implementation of the Adam optimization algorithm.
+- **FPGA Integration**: Exports weights to `.coe` format for initialization of Block RAMs in Xilinx FPGAs.
+- **Visualization**: Real-time plotting of Loss, Perplexity, and Accuracy during training.
 
 ## Installation
 
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/adcondev/long-short-term-memory.git
-    ```
-2.  Install the required dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *(Note: A `requirements.txt` file should be created with the following content:)*
-    ```
-    numpy
-    pandas
-    matplotlib
-    ```
+To run this project, you need Python installed along with the following dependencies:
+
+```bash
+pip install numpy pandas matplotlib
+```
 
 ## Usage
 
-To train the model and generate names, run the main script:
-```bash
-python LSTM.py
-```
-The script will train the model, display performance plots, and save the exported weights as `.coe` files in the root directory.
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/yourusername/long-short-term-memory.git
+    cd long-short-term-memory
+    ```
+
+2.  **Run the training script:**
+    ```bash
+    python LSTM.py
+    ```
+    This will start the training process, outputting metrics to the console and generating plots for Loss, Perplexity, and Accuracy.
+
+3.  **Export Weights:**
+    The script automatically generates `.coe` files in the `output/` directory (or root, depending on configuration) which can be used for FPGA synthesis.
 
 ## Contributing
 
-Contributions are welcome! If you have any suggestions or improvements, please feel free to open an issue or submit a pull request.
+Contributions are welcome! If you find a bug or want to improve the implementation (e.g., add more layers, optimize the backward pass), please feel free to open an issue or submit a pull request.
 
 1.  Fork the Project
 2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -61,4 +81,4 @@ Contributions are welcome! If you have any suggestions or improvements, please f
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Distributed under the MIT License. See `LICENSE` for more information.
